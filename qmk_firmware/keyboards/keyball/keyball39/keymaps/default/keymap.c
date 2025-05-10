@@ -51,6 +51,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT  , KBC_RST  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , KBC_RST  , QK_BOOT
   ),
 };
+  [4] = LAYOUT_universal(
+    _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,       _______ , _______, _______, _______, _______, _______
+  ),
+
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -58,7 +65,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     keyball_set_scroll_mode(get_highest_layer(state) == 3);
     return state;
 }
-
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (get_highest_layer(state) == 4) {
+        keyball_set_cursor_keys_mode(true);  // ← トラックボールを矢印キーとして動作
+    } else {
+        keyball_set_cursor_keys_mode(false); // ← 通常のマウスモード
+    }
+    return state;
+}
 #ifdef OLED_ENABLE
 
 #    include "lib/oledkit/oledkit.h"
