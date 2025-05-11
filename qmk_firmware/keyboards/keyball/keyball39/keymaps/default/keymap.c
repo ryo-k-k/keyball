@@ -11,18 +11,14 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-
 #include "quantum.h"
+#include "keyball.h"  // ← 追加: keyball_set_cursor_keys_mode() を使うため
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // keymap for default
   [0] = LAYOUT_universal(
     KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                            KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     ,
     KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                            KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  ,
@@ -50,31 +46,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     RGB_RMOD , RGB_HUD  , RGB_SAD  , RGB_VAD  , SCRL_DVD ,                            CPI_D1K  , CPI_D100 , CPI_I100 , CPI_I1K  , KBC_SAVE ,
     QK_BOOT  , KBC_RST  , _______  , _______  , _______  , _______  ,      _______  , _______  , _______  , _______  , KBC_RST  , QK_BOOT
   ),
-};
+
   [4] = LAYOUT_universal(
     _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,       _______ , _______, _______, _______, _______, _______
+    _______, _______, _______, _______, _______, _______,        _______ , _______, _______, _______, _______, _______
   ),
-
+};
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
+    uint8_t layer = get_highest_layer(state);
+    keyball_set_scroll_mode(layer == 3);
+    keyball_set_cursor_keys_mode(layer == 4);  // ← トラックボールを矢印キーとして動作
     return state;
 }
-layer_state_t layer_state_set_user(layer_state_t state) {
-    if (get_highest_layer(state) == 4) {
-        keyball_set_cursor_keys_mode(true);  // ← トラックボールを矢印キーとして動作
-    } else {
-        keyball_set_cursor_keys_mode(false); // ← 通常のマウスモード
-    }
-    return state;
-}
-#ifdef OLED_ENABLE
 
+#ifdef OLED_ENABLE
 #    include "lib/oledkit/oledkit.h"
 
 void oledkit_render_info_user(void) {
