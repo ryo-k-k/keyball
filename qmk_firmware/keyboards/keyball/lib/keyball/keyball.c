@@ -268,17 +268,22 @@ static inline bool should_report(void) {
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    // fetch from optical sensor.
-        if (keyball_get_cursor_keys_mode()) {
-        // カーソルキーとして処理する（例: 方向キーのキーコードを送信）
+    if (keyball_get_cursor_keys_mode()) {
         if (mouse_report.x > 0) tap_code(KC_RGHT);
         else if (mouse_report.x < 0) tap_code(KC_LEFT);
+
         if (mouse_report.y > 0) tap_code(KC_DOWN);
         else if (mouse_report.y < 0) tap_code(KC_UP);
 
-        // マウスレポートはクリアして返す
-        return pointing_device_task();  // または `{0}` で中身を無効化
+        // マウスレポートを無効化
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+        mouse_report.h = 0;
+        mouse_report.v = 0;
     }
+
+    return mouse_report;
+}
     if (keyball.this_have_ball) {
         pmw3360_motion_t d = {0};
         if (pmw3360_motion_burst(&d)) {
