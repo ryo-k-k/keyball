@@ -266,7 +266,6 @@ static inline bool should_report(void) {
 #endif
     return true;
 }
-report_mouse_t rep = {0}; // Initialize the mouse report
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (keyball_get_cursor_keys_mode()) {
         if (mouse_report.x > 0) tap_code(KC_RGHT);
@@ -284,6 +283,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     return mouse_report;
 }
+
+// 👇これは完全に別の関数
+report_mouse_t pointing_device_driver_get_report(void) {
+    report_mouse_t rep = {0};
+
     if (keyball.this_have_ball) {
         pmw3360_motion_t d = {0};
         if (pmw3360_motion_burst(&d)) {
@@ -293,14 +297,13 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
             }
         }
     }
-    // report mouse event, if keyboard is primary.
+
     if (is_keyboard_master() && should_report()) {
-        // modify mouse report by PMW3360 motion.
         motion_to_mouse(&keyball.this_motion, &rep, is_keyboard_left(), keyball.scroll_mode);
         motion_to_mouse(&keyball.that_motion, &rep, !is_keyboard_left(), keyball.scroll_mode ^ keyball.this_have_ball);
-        // store mouse report for OLED.
         keyball.last_mouse = rep;
     }
+
     return rep;
 }
 
