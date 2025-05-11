@@ -266,7 +266,7 @@ static inline bool should_report(void) {
 #endif
     return true;
 }
-
+report_mouse_t rep = {0}; // Initialize the mouse report
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (keyball_get_cursor_keys_mode()) {
         if (mouse_report.x > 0) tap_code(KC_RGHT);
