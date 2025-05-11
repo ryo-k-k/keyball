@@ -1,5 +1,5 @@
-# MCU name
-MCU = atmega32u4
+；# MCU name
+MCU = atmega32u；
 
 # Bootloader selection
 BOOTLOADER = caterina
@@ -50,4 +50,7 @@ MAGIC_ENABLE = no
 
 # Enable C99 standard to allow designated initializers like [4] = ...
 CFLAGS += -std=gnu99
+
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
 
