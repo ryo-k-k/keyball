@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include "keyball.h"
 #include "action.h"  // tap_code を使うため
-#include ".h"  // report_mouse_t を使うため
+#include "pointing_device.h"  // report_mouse_t を使うため
 
 const uint8_t CPI_DEFAULT    = KEYBALL_CPI_DEFAULT / 100;
 const uint8_t CPI_MAX        = pmw3360_MAXCPI + 1;
