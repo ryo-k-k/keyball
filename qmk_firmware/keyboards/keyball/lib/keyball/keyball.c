@@ -285,9 +285,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 }
 
 // 👇これは完全に別の関数
-report_mouse_t pointing_device_driver_get_report(void) {
-    report_mouse_t rep = {0};
-
+report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     if (keyball.this_have_ball) {
         pmw3360_motion_t d = {0};
         if (pmw3360_motion_burst(&d)) {
