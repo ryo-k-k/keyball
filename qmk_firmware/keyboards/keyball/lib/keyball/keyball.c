@@ -800,3 +800,25 @@ uint8_t mod_config(uint8_t mod) {
 }
 
 #endif
+
+#include "keyball.h"
+#include "action.h"  // tap_code を使うため
+#include "pointing_device.h"  // report_mouse_t を使うため
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (keyball_get_cursor_keys_mode()) {
+        if (mouse_report.x > 0) tap_code(KC_RGHT);
+        else if (mouse_report.x < 0) tap_code(KC_LEFT);
+
+        if (mouse_report.y > 0) tap_code(KC_DOWN);
+        else if (mouse_report.y < 0) tap_code(KC_UP);
+
+        // 入力済みなので無効化して返す
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+        mouse_report.h = 0;
+        mouse_report.v = 0;
+    }
+
+    return mouse_report;
+}
