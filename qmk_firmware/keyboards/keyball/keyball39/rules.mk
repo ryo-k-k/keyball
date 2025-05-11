@@ -47,3 +47,7 @@ SRC += lib/keyball/keyball.c
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
+
+# Enable C99 standard to allow designated initializers like [4] = ...
+CFLAGS += -std=gnu99
+
