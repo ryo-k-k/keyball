@@ -264,7 +264,7 @@ static inline bool should_report(void) {
     return true;
 }
 
-report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // fetch from optical sensor.
         if (keyball_get_cursor_keys_mode()) {
         // カーソルキーとして処理する（例: 方向キーのキーコードを送信）
