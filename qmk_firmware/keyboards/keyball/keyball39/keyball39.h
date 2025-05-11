@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include "quantum.h"
-#include "lib/keyball/keyball.h"
+#include "keyboards/keyball/keyball39/keyball.h"
 #include <stdbool.h>
 
 // clang-format off
