@@ -17,6 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "quantum.h"
+
+// 他の宣言の下あたりに追加してください
+void keyball_set_cursor_keys_mode(bool enable);
+bool keyball_get_cursor_keys_mode(void);
+
+
 //////////////////////////////////////////////////////////////////////////////
 // Configurations
 
