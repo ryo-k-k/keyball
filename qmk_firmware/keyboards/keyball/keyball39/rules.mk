@@ -52,5 +52,5 @@ MAGIC_ENABLE = no
 CFLAGS += -std=gnu99
 
 VIA_ENABLE = yes
-VIAL_ENABLE = yes
+
 
