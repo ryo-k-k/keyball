@@ -1,5 +1,5 @@
-；# MCU name
-MCU = atmega32u；
+# MCU name
+MCU = atmega32u4
 
 # Bootloader selection
 BOOTLOADER = caterina
@@ -8,13 +8,13 @@ BOOTLOADER = caterina
 LTO_ENABLE = yes
 
 # Build Options
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-EXTRAKEY_ENABLE = no        # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Enable N-Key Rollover
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-AUDIO_ENABLE = no           # Audio output
+BOOTMAGIC_ENABLE = no
+EXTRAKEY_ENABLE = no
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+NKRO_ENABLE = no
+BACKLIGHT_ENABLE = no
+AUDIO_ENABLE = no
 
 # Keyball39 is split keyboard.
 SPLIT_KEYBOARD = yes
@@ -23,34 +23,27 @@ SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
 SRC += drivers/pmw3360/pmw3360.c
-QUANTUM_LIB_SRC += spi_master.c # Optical sensor use SPI to communicate
+QUANTUM_LIB_SRC += spi_master.c
 
-# This is unnecessary for processing KC_MS_BTN*.
 MOUSEKEY_ENABLE = no
 
-# Enabled only one of RGBLIGHT and RGB_MATRIX if necessary.
-RGBLIGHT_ENABLE = no        # Enable RGBLIGHT
-RGB_MATRIX_ENABLE = no      # Enable RGB_MATRIX (not work yet)
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = no
 RGB_MATRIX_DRIVER = ws2812
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = no
 
-# To support OLED
-OLED_ENABLE = no                # Please Enable this in each keymaps.
-SRC += lib/oledkit/oledkit.c    # OLED utility for Keyball series.
+# OLED
+OLED_ENABLE = no
+SRC += lib/oledkit/oledkit.c
 
-# Include common library
+# Keyball library
 SRC += lib/keyball/keyball.c
 
-# Disable other features to squeeze firmware size
+# Feature trimming
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 
-# Enable C99 standard to allow designated initializers like [4] = ...
+# C99 support
 CFLAGS += -std=gnu99
-
-VIA_ENABLE = yes
-
-
