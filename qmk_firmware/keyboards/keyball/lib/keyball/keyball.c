@@ -773,6 +773,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 uint16_t keycode_config(uint16_t keycode) {
     return keycode;
 }
+#include "keyball.h"
+
+static bool cursor_keys_mode = false;
+
+void keyball_set_cursor_keys_mode(bool enable) {
+    cursor_keys_mode = enable;
+}
+
+bool keyball_get_cursor_keys_mode(void) {
+    return cursor_keys_mode;
+}
 
 uint8_t mod_config(uint8_t mod) {
     return mod;
