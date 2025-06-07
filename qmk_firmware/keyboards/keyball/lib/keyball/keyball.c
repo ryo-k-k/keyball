@@ -269,17 +269,22 @@ static inline bool should_report(void) {
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // しきい値：トラックボールがこの値以上動いたらキー送信
-    const int8_t threshold = 5;
-
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    const int8_t threshold = 5;  // ← ここで感度調整
+    
     if (keyball_get_cursor_keys_mode()) {
-        if (mouse_report.x > 0) tap_code(KC_RGHT);
-        else if (mouse_report.x < 0) tap_code(KC_LEFT);
+        if (mouse_report.x > threshold) {
+            tap_code(KC_RGHT);
+        } else if (mouse_report.x < -threshold) {
+            tap_code(KC_LEFT);
+        }
 
-        if (mouse_report.y > 0) tap_code(KC_DOWN);
-        else if (mouse_report.y < 0) tap_code(KC_UP);
+        if (mouse_report.y > threshold) {
+            tap_code(KC_DOWN);
+        } else if (mouse_report.y < -threshold) {
+            tap_code(KC_UP);
+        }
 
-        // マウスレポートを無効化
+        // マウスレポートを無効化（キー入力のみにする）
         mouse_report.x = 0;
         mouse_report.y = 0;
         mouse_report.h = 0;
@@ -288,6 +293,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     return mouse_report;
 }
+
 
 // 👇これは完全に別の関数
 report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
