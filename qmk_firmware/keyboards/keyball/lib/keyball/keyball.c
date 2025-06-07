@@ -269,7 +269,7 @@ static inline bool should_report(void) {
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // しきい値：トラックボールがこの値以上動いたらキー送信
-    const int8_t threshold = 50;  // ← ここで感度調整
+    const int8_t threshold = 10;  // ← ここで感度調整
     
     if (keyball_get_cursor_keys_mode()) {
         if (mouse_report.x > threshold) {
