@@ -266,6 +266,11 @@ static inline bool should_report(void) {
 #endif
     return true;
 }
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    // しきい値：トラックボールがこの値以上動いたらキー送信
+    const int8_t threshold = 5;
+
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (keyball_get_cursor_keys_mode()) {
         if (mouse_report.x > 0) tap_code(KC_RGHT);
